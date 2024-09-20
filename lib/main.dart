@@ -1,56 +1,88 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:switch_theme/share_preference_controller.dart';
+import 'package:switch_theme/theme/bloc/theme_bloc.dart';
+import 'package:switch_theme/theme/bloc/theme_event.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'theme/app_theme.dart';
+import 'theme/colors.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SharedPreferenceController.init();
+
+  runApp(BlocProvider(
+    create: (context) => ThemeBloc()..add(SetInitialTheme()),
+    child: const MyApp(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+  State<MyApp> createState() => _MyAppState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+    return BlocBuilder<ThemeBloc, bool>(
+      builder: (context, state) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: state
+              ? AppTheme(AppColors.darkColors).getTheme()
+              : AppTheme(AppColors.mainColors).getTheme(),
+          home: Scaffold(
+            appBar: AppBar(
+              actions: [
+                Switch(
+                    value: state,
+                    onChanged: (_) =>
+                        context.read<ThemeBloc>().add(ChangeTheme()))
+              ],
             ),
-            Text(
-              'counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Headline Text',
+                        style: TextStyle(
+                          color:
+                              Theme.of(context).textTheme.headlineLarge!.color,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'This is an example of a paragraph text.',
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyMedium!.color,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  FilledButton(
+                    onPressed: () {},
+                    child: const Text('Navigate to Second Page'),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
