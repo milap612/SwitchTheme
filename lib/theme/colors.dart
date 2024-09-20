@@ -22,7 +22,7 @@ class AppColors {
     whiteColor: const Color(0xffFFFFFF),
     blackColor: const Color(0xff000000),
     backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-    textColor: const Color.fromARGB(255, 55, 56, 56),
+    textColor: const Color(0xff000000),
     primaryColor: const Color.fromARGB(255, 90, 154, 192),
   );
 
@@ -32,7 +32,7 @@ class AppColors {
     whiteColor: const Color(0xff000000),
     blackColor: const Color(0xffFFFFFF),
     backgroundColor: const Color.fromARGB(255, 55, 56, 56),
-    textColor: const Color.fromARGB(255, 255, 255, 255),
+    textColor: const Color(0xffFFFFFF),
     primaryColor: const Color.fromARGB(255, 154, 169, 178),
   );
 }

@@ -24,12 +24,16 @@ class AppTheme {
         foregroundColor: chosenColor.backgroundColor,
         titleTextStyle: TextStyle(
           fontSize: sizes.appBarText,
-          color: chosenColor.whiteColor,
+          color: chosenColor.textColor,
           fontWeight: FontWeight.w500,
         ),
       ),
       textTheme: TextTheme(
         bodyMedium: TextStyle(
+          color: chosenColor.textColor,
+          fontSize: sizes.normalText,
+        ),
+        labelSmall: TextStyle(
           color: chosenColor.textColor,
           fontSize: sizes.normalText,
         ),

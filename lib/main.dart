@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:switch_theme/share_preference_controller.dart';
-import 'package:switch_theme/theme/bloc/theme_bloc.dart';
-import 'package:switch_theme/theme/bloc/theme_event.dart';
+import 'package:switch_theme/preference/share_preference_controller.dart';
+import 'package:switch_theme/bloc/theme_bloc.dart';
+import 'package:switch_theme/bloc/theme_event.dart';
 
 import 'theme/app_theme.dart';
 import 'theme/colors.dart';
@@ -37,6 +37,7 @@ class _MyAppState extends State<MyApp> {
               : AppTheme(AppColors.mainColors).getTheme(),
           home: Scaffold(
             appBar: AppBar(
+              title: Text('milap'),
               actions: [
                 Switch(
                     value: state,
@@ -53,11 +54,6 @@ class _MyAppState extends State<MyApp> {
                     children: [
                       Text(
                         'Headline Text',
-                        style: TextStyle(
-                          color:
-                              Theme.of(context).textTheme.headlineLarge!.color,
-                          fontWeight: FontWeight.bold,
-                        ),
                       ),
                       const SizedBox(
                         height: 20,
@@ -65,7 +61,7 @@ class _MyAppState extends State<MyApp> {
                       Text(
                         'This is an example of a paragraph text.',
                         style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyMedium!.color,
+                          color: Theme.of(context).textTheme.bodyMedium?.color,
                         ),
                       ),
                     ],

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:switch_theme/theme/bloc/theme_event.dart';
+import 'package:switch_theme/bloc/theme_event.dart';
 
-import '../../share_preference_controller.dart';
+import '../preference/share_preference_controller.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, bool> {
   ThemeBloc() : super(false) {
